@@ -1,0 +1,234 @@
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 40px;
+      color: #333;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .product {
+      width: 200px;
+      height: 300px;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
+    }
+
+    .product-image {
+      width: 180px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      color: #f00;
+      margin-top: 5px;
+    }
+
+    .product-button {
+      display: block;
+      width: 100%;
+      height: 30px;
+      background-color: #00f;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      height: 300px;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .cart-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .cart-item-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+
+    .cart-item-info {
+      margin-left: 10px;
+    }
+
+    .cart-item-title {
+      font-size: 16px;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      color:#f00
+    }
+
+    .cart-total {
+     display:flex; 
+     justify-content : space-between; 
+     align-items : center; 
+     margin-top :20 px; 
+     font-size :18 px; 
+     font-weight :bold; 
+   }
+   
+   .checkout-button { 
+     display:block; 
+     width :100 %; 
+     height :30 px; 
+     background-color :#0f0; 
+     color :#fff; 
+     text-align :center; 
+     line-height :30 px; 
+     text-decoration :none; 
+     margin-top :10 px; 
+   }
+   
+   </style>
+</head>
+<body>
+<div class="container">
+<h1 class="logo">Book Store</h1>
+<div class="products">
+<div class="product">
+<img src="book1.jpg" class="product-image">
+<h3 class="product-title">The Hunger Games</h3>
+<p class="product-price">R$29.90</p>
+<a href="#" class="product-button" onclick="addToCart('The Hunger Games', 'book1.jpg', '29.90')">Adicionar ao carrinho</a>
+</div>
+<div class="product">
+<img src="book2.jpg" class="product-image">
+<h3 class="product-title">Harry Potter and the Philosopher's Stone</h3>
+<p class="product-price">R$39.90</p>
+<a href="#" class="product-button" onclick="addToCart('Harry Potter and the Philosopher\'s Stone', 'book2.jpg', '39.90')">Adicionar ao carrinho</a>
+</div>
+<div class="product">
+<img src="book3.jpg" class="product-image">
+<h3 class="product-title">The Lord of the Rings</h3>
+<p class="product-price">R$49.90</p>
+<a href="#" class="product-button" onclick="addToCart('The Lord of the Rings', 'book3.jpg', '49.90')">Adicionar ao carrinho</a>
+</div>
+</div>
+</div>
+<div class="cart">
+<h2 class="cart-title">Carrinho</h2>
+<div class="cart-items" id="cart-items">
+</div>
+<div class="cart-total" id="cart-total">
+<span>Total:</span>
+<span>R$0.00</span>
+</div>
+<a href="#" class="checkout-button">Finalizar compra</a>
+</div>
+<script>
+// Criar uma variável para armazenar os itens do carrinho
+var cart = [];
+
+// Criar uma função para adicionar um item ao carrinho
+function addToCart(title, image, price) {
+  // Criar um objeto para representar o item
+  var item = {
+    title: title,
+    image: image,
+    price: price
+  };
+  // Adicionar o item ao array do carrinho
+  cart.push(item);
+  // Atualizar a interface do carrinho
+  updateCart();
+}
+
+// Criar uma função para atualizar a interface do carrinho
+function updateCart() {
+  // Obter o elemento que contém os itens do carrinho
+  var cartItems = document.getElementById("cart-items");
+  // Limpar o conteúdo do elemento
+  cartItems.innerHTML = "";
+  // Criar uma variável para armazenar o total do carrinho
+  var total = 0;
+  // Percorrer o array do carrinho
+  for (var i = 0; i < cart.length; i++) {
+    // Obter o item atual
+    var item = cart[i];
+    // Criar um elemento div para representar o item
+    var div = document.createElement("div");
+    div.className = "cart-item";
+    // Criar um elemento img para mostrar a imagem do item
+    var img = document.createElement("img");
+    img.src = item.image;
+    img.className = "cart-item-image";
+    // Criar um elemento div para mostrar as informações do item
+    var info = document.createElement("div");
+    info.className = "cart-item-info";
+    // Criar um elemento h4 para mostrar o título do item
+    var title = document.createElement("h4");
+    title.className = "cart-item-title";
+    title.textContent = item.title;
+    // Criar um elemento p para mostrar o preço do item
+    var price = document.createElement("p");
+    price.className = "cart-item-price";
+    price.textContent = "R$" + item.price;
+    // Adicionar o título e o preço ao elemento de informações
+    info.appendChild(title);
+    info.appendChild(price);
+    // Adicionar a imagem e as informações ao elemento do item
+    div.appendChild(img);
+    div.appendChild(info);
+    // Adicionar o elemento do item ao elemento que contém os itens do carrinho
+    cartItems.appendChild(div);
+    // Atualizar o total do carrinho com o preço do item
+    total += parseFloat(item.price);
+  }
+  // Obter o elemento que mostra o total do carrinho
+  var cartTotal = document.getElementById("cart-total");
+  // Obter os elementos span que mostram o valor do total
+  var spans = cartTotal.getElementsByTagName("span");
+  // Atualizar o valor do total com duas casas decimais
+  spans[1].textContent = "R$" + total.toFixed(2);
+}
+</script>
+</body>
+</html>
